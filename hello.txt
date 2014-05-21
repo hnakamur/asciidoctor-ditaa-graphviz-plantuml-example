@@ -1,0 +1,97 @@
+[ditaa]
+----
+                   +-------------+
+                   | Asciidoctor |-------+
+                   |  Diagram    |       |
+                   +-------------+       | PNG out
+                       ^                 |
+                       | ditaa in        |
+                       |                 v
+ +--------+   +--------+----+    /----------------\
+ |        | --+ Asciidoctor +--> |                |
+ |  Text  |   +-------------+    |Beautiful output|
+ |Document|   |   !magic!   |    |                |
+ |     {d}|   |             |    |                |
+ +---+----+   +-------------+    \----------------/
+     :                                   ^
+     |          Lots of work             |
+     +-----------------------------------+
+----
+
+[graphviz, dot-example, svg]
+----
+digraph g {
+    a -> b
+    b -> c
+    c -> d
+    d -> a
+}
+----
+
+
+[[main-classes]]
+.The PlantUML block extension class
+[plantuml, sample-plantuml-diagram, alt="Class diagram", width=135, height=118]
+----
+class BlockProcessor
+class PlantUmlBlock
+BlockProcessor <|-- PlantUmlBlock
+----
+
+
+Ruby source sample
+
+```ruby
+puts ['AsciiDoc', 'GitHub', 'AsciiDoc on GitHub'].map {|item|
+  "I use #{item}!"
+} * "\n"
+```
+
+Gemfile
+
+```ruby
+source 'https://rubygems.org'
+gem 'asciidoctor'
+gem 'asciidoctor-diagram'
+```
+
+asciidoctor
+
+```ruby
+#!/usr/bin/env bundle exec ruby
+
+$:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+
+if RUBY_VERSION < '1.9'
+  require 'rubygems'
+end
+require 'asciidoctor'
+require 'asciidoctor/cli/options'
+require 'asciidoctor/cli/invoker'
+require 'asciidoctor-diagram'
+
+invoker = Asciidoctor::Cli::Invoker.new(ARGV)
+invoker.invoke!
+exit invoker.code
+```
+
+asciidoctor.diff
+
+```
+--- vendor/bundle/ruby/2.1.0/gems/asciidoctor-0.1.4/bin/asciidoctor	2014-05-21 10:27:37.000000000 +0900
++++ asciidoctor	2014-05-21 10:31:37.000000000 +0900
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env ruby
++#!/usr/bin/env bundle exec ruby
+ 
+ $:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+ 
+@@ -8,6 +8,7 @@
+ require 'asciidoctor'
+ require 'asciidoctor/cli/options'
+ require 'asciidoctor/cli/invoker'
++require 'asciidoctor-diagram'
+ 
+ invoker = Asciidoctor::Cli::Invoker.new(ARGV)
+ invoker.invoke!
+```

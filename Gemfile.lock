@@ -1,0 +1,15 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    asciidoctor (0.1.4)
+    asciidoctor-diagram (1.1.5)
+      asciidoctor (~> 0.1.4)
+      rjb (~> 1.4.8)
+    rjb (1.4.9)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  asciidoctor
+  asciidoctor-diagram
