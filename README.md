@@ -10,4 +10,7 @@ bundle --path vendor/bundle
 ./asciidoctor -B output -D . hello.txt
 ```
 
+You can see the output html at
+https://hnakamur.github.io/asciidoctor-ditaa-graphviz-plantuml-example/output/hello.html
+
 MIT license
