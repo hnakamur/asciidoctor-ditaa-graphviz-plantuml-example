@@ -1,2 +1,8 @@
 /vendor
 /output
+*.png
+*.png.cache
+*.svg
+*.svg.cache
+*.pdf
+*.xml
